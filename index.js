@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
+
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 const port = 8000;
@@ -12,6 +13,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Parse JSON bodies (for JSON data)
 app.use(bodyParser.json());
+app.use(cookieParser());
+
+app.use(expressLayouts);
+app.set('layout extractStyles', true);
+app.set('layout extractScripts', true);
+
+app.set('view engine', 'ejs');
+app.set('views', './views');
+app.set('views', path.join(__dirname, 'views'));
 
 
 // use express router
@@ -21,18 +31,15 @@ app.use('/', require('./routes'));
 
 app.use(express.static('./assets'));
 
-app.use(cookieParser());
 
-app.use(expressLayouts);
+
+
 
 // extract style and scripts from sub pages into the layout
-app.set('layout extractStyles', true);
-app.set('layout extractScripts', true);
+
 
 // setting up our view engine
-app.set('view engine', 'ejs');
-app.set('views', './views');
-app.set('views', path.join(__dirname, 'views'));
+
 
 
 // starting our server on port:8000
