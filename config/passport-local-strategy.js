@@ -30,7 +30,7 @@ passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
 
-// deserialize the from the key in the cookies
+// deserialize the user from the key in the cookies
 passport.deserializeUser(async function(id, done) {
     try {
         let user = await User.findById(id);
@@ -44,5 +44,23 @@ passport.deserializeUser(async function(id, done) {
     }
 
 });
+
+// check if the useris authenticated
+passport.checkAuthentication = function(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    // if user not signed in
+    return res.redirect('/users/sign-in');
+}
+
+passport.setAuthenticatedUser = function(req, res, next) {
+    if (req.isAuthenticated()) {
+        // req.user contains the current signed in user in the sessions cookies
+        // and we are sending this to the locals fro the views
+        res.locals.user = req.user;
+    }
+    next();
+}
 
 module.exports = passport;
