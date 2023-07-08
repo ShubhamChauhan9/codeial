@@ -92,3 +92,20 @@ module.exports.create = async function(req, res) {
 module.exports.createSession = function(req, res) {
     return res.redirect('/');
 }
+
+// sign out a session using passport
+// module.exports.destroySession = function(req, res) {
+//     req.logout();
+//     return res.redirect('/home');
+// }
+// as above syntax is deprecated
+module.exports.destroySession = function(req, res) {
+    req.logout((e) => {
+        if (e) {
+            console.error(e);
+        }
+
+        return res.redirect('/');
+    });
+
+}
