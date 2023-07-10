@@ -1,0 +1,11 @@
+/* Add styles for the navbar links */
+body .navbar a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #333;
+}
+body .navbar a:hover {
+  color: #1518df;
+}
+
+/*# sourceMappingURL=header.css.map */

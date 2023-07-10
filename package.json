@@ -6,7 +6,8 @@
     "scripts": {
         "start": "node index.js",
         "dev": "nodemon index.js",
-        "test": "jest"
+        "test": "jest",
+        "sass": " sass --watch assets/scss:assets/css "
     },
     "keywords": [
         "social"
@@ -23,6 +24,7 @@
         "express-session": "^1.17.3",
         "mongoose": "^7.3.1",
         "passport": "^0.6.0",
-        "passport-local": "^1.0.0"
+        "passport-local": "^1.0.0",
+        "sass": "^1.63.6"
     }
 }

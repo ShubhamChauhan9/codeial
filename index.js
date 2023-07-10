@@ -34,6 +34,15 @@ const MongoStore = require('connect-mongo');
 
 const bodyParser = require('body-parser');
 
+// const sassMiddleware = require('node-sass');
+
+// app.use(sassMiddleware({
+//     src: "./assets/scss",
+//     dest: "./assets/css",
+//     debug: true,
+//     outputStyle: "extended",
+//     prefix: "/css"
+// }))
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Parse JSON bodies (for JSON data)

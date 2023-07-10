@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    background-color: rgb(189, 193, 194);
+    /* text-align: center; */
+    #layout-main {
+        height: 80%;
+    }
+    .navbar {
+        background-color: #d4d2d2;
+        margin: 2px;
+        display: flex;
+        justify-content: space-between;
+        #icon {
+            margin: 10;
+            padding: 5;
+            font-family: fantasy;
+            font-size: x-large;
+            color: darkblue;
+        }
+        #nav-content {
+            display: flex;
+            div {
+                margin-top: 25px;
+                margin-right: 10px;
+            }
+            li {
+                margin-top: 25px;
+                margin-right: 10px;
+            }
+        }
+    }
+}
