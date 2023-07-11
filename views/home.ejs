@@ -15,74 +15,81 @@
     </h1>
 
     <section id="feed-posts">
-        <h4>Posts</h4>
-        <form action="/posts/create" method="post">
-            <textarea name="content" cols="30" rows="4" placeholder="Type here...."></textarea>
-            <input type="submit" value="Post">
-        </form>
+        <%
+        if(locals.user){%>
 
-        <div id="posts-list-div">
-            <ul>
-                <% for(post of posts){%>
-                    <li>
-                        <%= post.content %>
-                    </li>
-                    <small>
-                        <%= post.user.name %>
-                        <!-- on--<%= new Date(post.user.createdAt).toLocaleDateString() %> -->
-                        <%
-                        const createdAt = new Date(post.createdAt);
-                        const currentTime = new Date();
+            <h4>Posts</h4>
+            <form action="/posts/create" method="post">
+                <textarea name="content" cols="30" rows="4" placeholder="Type here...."></textarea>
+                <input type="submit" value="Post">
+            </form>
 
-                        // Calculate the time difference in milliseconds
-                        const timeDifference = currentTime - createdAt;
-
-                        // Convert milliseconds to seconds, minutes, hours, and days
-                        const seconds = Math.floor(timeDifference / 1000);
-                        const minutes = Math.floor(seconds / 60);
-                        const hours = Math.floor(minutes / 60);
-                        const days = Math.floor(hours / 24);
-
-                        let timeAgo;
-
-                        // Determine the appropriate time ago representation
-                        if (days > 0) {
-                        timeAgo = days + " day" + (days > 1 ? "s" : "") + " ago";
-                        } else if (hours > 0) {
-                        timeAgo = hours + " hour" + (hours > 1 ? "s" : "") + " ago";
-                        } else if (minutes > 0) {
-                        timeAgo = minutes + " minute" + (minutes > 1 ? "s" : "") + " ago";
-                        } else {
-                        timeAgo = seconds + " second" + (seconds > 1 ? "s" : "") + " ago";
-                        }
-                    %>
-
-                    <%= timeAgo %>
-
-                        <!-- on--<%= new Date(post.createdAt).toLocaleString() %> -->
-                        <%
-                            const created = new Date(post.createdAt);
-
-                            // Get the time string from created
-                            const timeString = created.toLocaleTimeString();
-
-                            // Get the date string from created
-                            const dateString = created.toLocaleDateString();
-
-                            // Concatenate the time and date strings
-                            const displayString = timeString + " " + dateString;
+            <div id="posts-list-div">
+                <ul>
+                    <% for(post of posts){%>
+                        <li>
+                            <%= post.content %>
+                        </li>
+                        <small>
+                            <%= post.user.name %>
+                            <!-- on--<%= new Date(post.user.createdAt).toLocaleDateString() %> -->
+                            <%
+                            const createdAt = new Date(post.createdAt);
+                            const currentTime = new Date();
+    
+                            // Calculate the time difference in milliseconds
+                            const timeDifference = currentTime - createdAt;
+    
+                            // Convert milliseconds to seconds, minutes, hours, and days
+                            const seconds = Math.floor(timeDifference / 1000);
+                            const minutes = Math.floor(seconds / 60);
+                            const hours = Math.floor(minutes / 60);
+                            const days = Math.floor(hours / 24);
+    
+                            let timeAgo;
+    
+                            // Determine the appropriate time ago representation
+                            if (days > 0) {
+                            timeAgo = days + " day" + (days > 1 ? "s" : "") + " ago";
+                            } else if (hours > 0) {
+                            timeAgo = hours + " hour" + (hours > 1 ? "s" : "") + " ago";
+                            } else if (minutes > 0) {
+                            timeAgo = minutes + " minute" + (minutes > 1 ? "s" : "") + " ago";
+                            } else {
+                            timeAgo = seconds + " second" + (seconds > 1 ? "s" : "") + " ago";
+                            }
                         %>
+    
+                        <%= timeAgo %>
+    
+                            <!-- on--<%= new Date(post.createdAt).toLocaleString() %> -->
+                            <%
+                                const created = new Date(post.createdAt);
+    
+                                // Get the time string from created
+                                const timeString = created.toLocaleTimeString();
+    
+                                // Get the date string from created
+                                const dateString = created.toLocaleDateString();
+    
+                                // Concatenate the time and date strings
+                                const displayString = timeString + " " + dateString;
+                            %>
+    
+                             <%= displayString %>
+    
+    
+                          
+    
+    
+                        </small>
+                        <%} %>
+                </ul>
+            </div>
 
-                         <%= displayString %>
+            <%}
+        %>
 
-
-                      
-
-
-                    </small>
-                    <%} %>
-            </ul>
-        </div>
     </section>
 </body>
 
