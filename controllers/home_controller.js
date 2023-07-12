@@ -5,7 +5,12 @@ module.exports.home = async function(req, res) {
     // console.log(req.cookies);
     // res.cookie('user_id', 25);
     try {
-        let foundPosts = await Posts.find({}).populate('user').exec();
+        let foundPosts = await Posts.find({}).populate('user').populate({
+            path: "comments",
+            populate: {
+                path: "user"
+            }
+        }).exec();
         return res.render('home', {
             title: "Codeial | Home",
             posts: foundPosts
