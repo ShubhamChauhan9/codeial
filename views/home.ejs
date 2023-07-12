@@ -30,8 +30,14 @@
                         <li>
                             <p>
                                 <%= post.content %>
-                                    <br>
-                                    <small>
+                                    <% if(post.user.id===locals.user.id){%>
+                                        <small>
+                                        <a href="/posts/deletePost/<%= post.id %>">X</a>
+                                     </small>
+
+                                        <%} %>
+                                            <br>
+                                            <small>
                                             <%= post.user.name %>
                                             <!-- on--<%= new Date(post.user.createdAt).toLocaleDateString() %> -->
                                             <%
