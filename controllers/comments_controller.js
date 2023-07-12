@@ -25,4 +25,29 @@ module.exports.create = async function(req, res) {
     } catch (e) {
         console.log(e);
     }
-}
+};
+
+module.exports.deleteComment = async function(req, res) {
+    try {
+        let toDeleteComment = await Comment.findById(req.params.id);
+        //     .id means converting the object _id to String
+        // console.log(toDeletePost.user.id.toString('hex') == req.user.id.toString());
+
+        if (toDeleteComment.user.id.toString('hex') == req.user.id.toString()) {
+            // toDeleteComment.remove(); this syntax is deprecated
+            let postId = toDeleteComment.post;
+            await Comment.findOneAndDelete({ _id: req.params.id });
+            let updatedPosts = await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
+
+            return res.redirect('back');
+
+        } else {
+            console.log("comment authorization to delete comment not matched");
+            return res.redirect('back');
+        }
+
+    } catch (err) {
+        console.log("error in deletind comment");
+        console.error(err);
+    }
+};
