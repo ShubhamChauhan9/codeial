@@ -1,10 +1,18 @@
 const User = require('../models/user');
 
-module.exports.profile = function(req, res) {
+module.exports.profile = async function(req, res) {
     // res.end('<h1>User Profile</h1>');
-    return res.render('user_profile', {
-        title: "User Profile"
-    })
+    try {
+        let user = await User.findById(req.params.id);
+        return res.render('user_profile', {
+            title: "User Profile",
+            profile_user: user
+        })
+    } catch (e) {
+        console.log("error in finding friends profile by id ", e);
+    }
+
+
 }
 
 
@@ -82,6 +90,20 @@ module.exports.create = async function(req, res) {
     } catch (err) {
         console.error("Error in creating a User while signing up:", err);
         return res.redirect('back');
+    }
+};
+
+module.exports.update = async function(req, res) {
+    try {
+        // console.log(req.user.id, req.params.id);
+        if (req.user.id == req.params.id) {
+            let updatedUser = await User.findByIdAndUpdate(req.params.id, { name: req.body.name, email: req.body.email });
+            return res.redirect('back');
+        }
+    } catch (err) {
+
+        console.error("Error in Updating a User:", err);
+        return res.status(401).send('Unauthorized');
     }
 };
 
