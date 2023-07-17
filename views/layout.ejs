@@ -15,17 +15,20 @@
     <!-- <div id="layout-header"> -->
     <%- include('_header'); %>
         <!-- </div> -->
+        <%  if(flash.Success&&flash.Success.length>0){%>
+            <%=flash.Success%>
+                <%}
+        %>
+                    <main id="layout-main">
+                        <%- body %>
+                    </main>
 
-        <main id="layout-main">
-            <%- body %>
-        </main>
-
-        <!-- <div id="layout-footer"> -->
-        <%- include('_footer'); %>
-            <!-- </div> -->
+                    <!-- <div id="layout-footer"> -->
+                    <%- include('_footer'); %>
+                        <!-- </div> -->
 
 
-            <%- script %>
+                        <%- script %>
 
 </body>
 

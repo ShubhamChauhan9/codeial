@@ -34,6 +34,10 @@ const MongoStore = require('connect-mongo');
 
 const bodyParser = require('body-parser');
 
+const flash = require('connect-flash');
+
+const flashMware = require('./config/middleWare');
+
 // const sassMiddleware = require('node-sass');
 
 // app.use(sassMiddleware({
@@ -99,7 +103,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 app.use(passport.setAuthenticatedUser);
+
+app.use(flash());
+app.use(flashMware.setFlash);
 
 app.use('/', require('./routes'));
 
