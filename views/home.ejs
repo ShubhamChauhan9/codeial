@@ -7,46 +7,50 @@
     <title>
         <%= title %>
     </title>
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
-    <h1>Codeial /
-        <%= title %>
-    </h1>
 
-    <section id="feed-posts">
-        <%
-        if(locals.user){%>
 
-            <h4>Posts</h4>
-            <form action="/posts/create" method="post">
-                <textarea name="content" cols="30" rows="4" placeholder="Type here...." required></textarea>
-                <input type="submit" value="Post">
-            </form>
+    <div id="home-container">
+        <section id="feed-posts">
+            <%
+            if(locals.user){%>
 
-            <div id="posts-list-div">
-                <ul>
-                    <% for(post of posts){%>
-                        <%-include('_posts')-%>
+                <h4>Posts</h4>
+                <form action="/posts/create" method="post">
+                    <textarea name="content" cols="30" rows="4" placeholder="Type here...." required></textarea>
+                    <input type="submit" value="Post">
+                </form>
 
-                            <%} %>
-                </ul>
-            </div>
+                <div id="posts-list-div">
+                    <ul>
+                        <% for(post of posts){%>
+                            <%-include('_posts')-%>
 
-            <%}  %>
-    </section>
-    <section id="user-friends">
-        <h4>Friends</h4>
-        <%
-          for(u of all_users){%>
-            <p>
-                <a href="users/profile/<%= u.id %>">
-                    <%=u.name %>
-                </a>
-            </p>
-            <%}
-          %>
-    </section>
+                                <%} %>
+                    </ul>
+                </div>
+
+                <%}  %>
+        </section>
+        <section id="user-friends">
+            <h4>Friends</h4>
+            <%
+              for(u of all_users){%>
+                <p>
+                    <a href="users/profile/<%= u.id %>">
+                        <%=u.name %>
+                    </a>
+                </p>
+                <%}
+              %>
+        </section>
+
+    </div>
+
+
 </body>
 
 </html>

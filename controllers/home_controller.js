@@ -13,7 +13,7 @@ module.exports.home = async function(req, res) {
         }).exec();
         let foundUsers = await User.find({});
         return res.render('home', {
-            title: "Codeial | Home",
+            title: "Home",
             posts: foundPosts,
             all_users: foundUsers
         })
