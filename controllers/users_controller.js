@@ -75,20 +75,24 @@ module.exports.create = async function(req, res) {
     try {
         // Check if passwords match
         if (req.body.password !== req.body.confirm_password) {
+            req.flash('Success', 'PassWord missmatched');
             return res.redirect('back');
         }
 
         // Check if the user already exists
         const existingUser = await User.findOne({ email: req.body.email });
         if (existingUser) {
+            req.flash('Success', 'User already exists');
             return res.redirect('back');
         }
 
         // Create the user
         const user = await User.create(req.body);
+        req.flash('Success', 'User SignUp successfull');
         return res.redirect('/users/sign-in');
     } catch (err) {
-        console.error("Error in creating a User while signing up:", err);
+        // console.error("Error in creating a User while signing up:", err);
+        req.flash('error', err);
         return res.redirect('back');
     }
 };
@@ -98,11 +102,13 @@ module.exports.update = async function(req, res) {
         // console.log(req.user.id, req.params.id);
         if (req.user.id == req.params.id) {
             let updatedUser = await User.findByIdAndUpdate(req.params.id, { name: req.body.name, email: req.body.email });
+            req.flash('Success', 'User Updated');
             return res.redirect('back');
         }
     } catch (err) {
 
-        console.error("Error in Updating a User:", err);
+        // console.error("Error in Updating a User:", err);
+        req.flash('error', err);
         return res.status(401).send('Unauthorized');
     }
 };
