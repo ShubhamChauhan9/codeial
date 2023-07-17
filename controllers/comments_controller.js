@@ -15,15 +15,23 @@ module.exports.create = async function(req, res) {
             if (createdComment) {
                 foundPosts.comments.push(createdComment);
                 foundPosts.save();
+                req.flash('Success', 'Comment Posted !!!');
                 return res.redirect('/');
             } else {
-                console.log("comment creation unsuccessfull for pushing into foundPosts");
+                // console.log("comment creation unsuccessfull for pushing into foundPosts");
+                req.flash('error', 'oops comment could not ne posted');
+                return res.redirect('/');
             }
         } else {
-            console.log("posts can not be found by post id");
+            // console.log("posts can not be found by post id");
+            req.flash('error', 'Post not found !!');
+            return res.redirect('/');
         }
     } catch (e) {
-        console.log(e);
+        // console.log(e);
+        req.flash('error', e);
+        return res.redirect('/');
+
     }
 };
 
@@ -38,16 +46,19 @@ module.exports.deleteComment = async function(req, res) {
             let postId = toDeleteComment.post;
             await Comment.findOneAndDelete({ _id: req.params.id });
             let updatedPosts = await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
-
+            req.flash('Success', 'Comment deleted');
             return res.redirect('back');
 
         } else {
-            console.log("comment authorization to delete comment not matched");
+            // console.log("comment authorization to delete comment not matched");
+            req.flash('error', 'Cant delete unauthorized');
             return res.redirect('back');
         }
 
     } catch (err) {
-        console.log("error in deletind comment");
-        console.error(err);
+        // console.log("error in deletind comment");
+        req.flash('error', err);
+        // console.error(err);
+        return res.redirect('back');
     }
 };
